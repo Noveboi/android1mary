@@ -21,13 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize SharedPreferences with painting data
         initializeSharedPreferences();
 
-        // Setup button to navigate to GalleryActivity
         Button viewGalleryButton = findViewById(R.id.viewGalleryButton);
         viewGalleryButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
+            Intent intent = new Intent(this, GalleryActivity.class);
             startActivity(intent);
         });
 
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Method to initialize SharedPreferences
     private void initializeSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("GalleryAppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -49,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
         paintings.add(new Painting("Weeping Willow", "Claude Monet", "Claude Monet's *Weeping Willow* (1918-1919) portrays the melancholy beauty of a willow tree with expressive, layered brushstrokes, reflecting the artist's grief and the turbulence of World War I while capturing the interplay of light and shadow.", R.drawable.monet2));
         paintings.add(new Painting("Water Lilies and the Japanese Bridge", "Claude Monet", "Claude Monet's *Water Lilies and the Japanese Bridge* (1899) depicts a tranquil garden scene with a curved bridge over a pond, using vibrant colors and fluid brushstrokes to capture the shimmering reflections and lush foliage of his beloved water garden at Giverny.", R.drawable.monet3));
 
-
         String paintingsJson = convertPaintingsToJson(paintings);
 
-        // Store JSON string in SharedPreferences
         editor.putString("paintings", paintingsJson);
-        editor.apply(); // Save changes
+        editor.apply();
     }
 
     private String convertPaintingsToJson(List<Painting> paintings) {
@@ -63,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             jsonArray.put(painting.toJSON());
         }
 
-        // Create a JSONObject to wrap the array
         JSONObject paintingsJsonObject = new JSONObject();
         try {
             paintingsJsonObject.put("paintings", jsonArray);
@@ -71,6 +65,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return paintingsJsonObject.toString(); // Return the JSON string
+        return paintingsJsonObject.toString();
     }
 }

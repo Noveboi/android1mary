@@ -5,10 +5,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +24,13 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_gallery);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // Retrieve data from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("GalleryAppPrefs", Context.MODE_PRIVATE);
@@ -64,7 +77,6 @@ public class GalleryActivity extends AppCompatActivity {
         }
     }
 
-    // Method to parse the JSON string and return a list of Painting objects
     private List<Painting> parsePaintings(String json) {
         List<Painting> paintingsList = new ArrayList<>();
         try {
