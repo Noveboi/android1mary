@@ -1,0 +1,7 @@
+<resources>
+<string name="app_name">Gallery App</string>
+<string name="view_gallery">View Gallery</string>
+    <string name="monet_s_museum">Monet\'s Museum!</string>
+    <string name="view_paintings">View Paintings</string>
+    <string name="exit">Exit</string>
+</resources>
